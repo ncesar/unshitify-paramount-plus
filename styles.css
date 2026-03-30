@@ -1,0 +1,5 @@
+/* Hide duration labels */
+[itemprop="duration"],
+span.duration[data-ci="duration"] {
+  display: none !important;
+}

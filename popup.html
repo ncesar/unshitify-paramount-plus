@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      width: 220px;
+      padding: 12px 16px;
+      margin: 0;
+      background: #0d0d0d;
+      color: #f0f0f0;
+    }
+
+    h1 {
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0 0 12px;
+      color: #ffffff;
+      letter-spacing: 0.02em;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 0;
+    }
+
+    .option:not(:last-child) {
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #0040c8;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    label {
+      cursor: pointer;
+      line-height: 1.3;
+    }
+
+    .reload-notice {
+      display: none;
+      margin-top: 12px;
+      padding: 7px 10px;
+      background: #1a1a2e;
+      border: 1px solid #0040c8;
+      border-radius: 5px;
+      font-size: 12px;
+      color: #a0b4ff;
+      line-height: 1.4;
+    }
+
+    .reload-notice.visible {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Paramount UI Cleaner</h1>
+
+  <div class="option">
+    <input type="checkbox" id="hideDuration" />
+    <label for="hideDuration">Hide duration labels</label>
+  </div>
+
+  <div class="option">
+    <input type="checkbox" id="replaceImages" />
+    <label for="replaceImages">Replace fight thumbnails</label>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
