@@ -11,9 +11,11 @@ ext.storage.local.get({ hideDuration: true, replaceImages: true }, (settings) =>
 });
 
 // Persist each checkbox change and show reload notice
+const reloadNotice = document.getElementById('reloadNotice');
 
 for (const id of checkboxes) {
   document.getElementById(id).addEventListener('change', (e) => {
     ext.storage.local.set({ [id]: e.target.checked });
+    reloadNotice.classList.add('visible');
   });
 }

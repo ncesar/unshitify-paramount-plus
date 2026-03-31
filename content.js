@@ -6,33 +6,32 @@ const THUMB_URL =
 
 let currentSettings = { hideDuration: true, replaceImages: true };
 
+function isHomePage() {
+  const p = window.location.pathname.replace(/\/$/, '') || '/';
+  return p === '/home' || p === '';
+}
+
+function pageHasUFC() {
+  return document.body.textContent.includes('UFC');
+}
+
+function shouldReplaceImages() {
+  return currentSettings.replaceImages && !isHomePage() && pageHasUFC();
+}
+
 function modifyPage() {
-  // --- Duration labels ---
+  // --- Duration labels (no UFC/page restrictions) ---
   document.querySelectorAll('[itemprop="duration"], span.duration[data-ci="duration"]').forEach((el) => {
     el.style.display = currentSettings.hideDuration ? 'none' : '';
   });
 
-  // --- Thumbnails ---
-  document.querySelectorAll('.thumb-wrapper img.thumb').forEach((img) => {
-    if (currentSettings.replaceImages) {
-      // Save original src before first replacement so we can restore later
-      if (!img.dataset.origSrc) img.dataset.origSrc = img.src;
-      if (img.dataset.src && !img.dataset.origDataSrc) img.dataset.origDataSrc = img.dataset.src;
-
+  // --- Thumbnails (only on UFC pages, never on homepage) ---
+  if (shouldReplaceImages()) {
+    document.querySelectorAll('.thumb-wrapper img.thumb').forEach((img) => {
       if (img.src !== THUMB_URL) img.src = THUMB_URL;
       if (img.dataset.src && img.dataset.src !== THUMB_URL) img.dataset.src = THUMB_URL;
-    } else {
-      // Restore originals if available
-      if (img.dataset.origSrc) {
-        img.src = img.dataset.origSrc;
-        delete img.dataset.origSrc;
-      }
-      if (img.dataset.origDataSrc) {
-        img.dataset.src = img.dataset.origDataSrc;
-        delete img.dataset.origDataSrc;
-      }
-    }
-  });
+    });
+  }
 }
 
 // Load settings then run; fall back to defaults (both true) if not yet saved
