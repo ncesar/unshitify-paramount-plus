@@ -1,3 +1,6 @@
+// Orion (iOS) uses browser.* — fall back to it if chrome.* is unavailable
+const ext = typeof chrome !== 'undefined' ? chrome : browser;
+
 const THUMB_URL =
   'https://wwwimage-intl.pplusstatic.com/thumbnails/photos/w370-q80/channel/UFC-FightNight-Generic-2026-THMB-Main-Eng_sw49n.jpg?format=webp';
 
@@ -33,13 +36,13 @@ function modifyPage() {
 }
 
 // Load settings then run; fall back to defaults (both true) if not yet saved
-chrome.storage.local.get({ hideDuration: true, replaceImages: true }, (settings) => {
+ext.storage.local.get({ hideDuration: true, replaceImages: true }, (settings) => {
   currentSettings = settings;
   modifyPage();
 });
 
 // React to settings changes made in the popup without needing a page reload
-chrome.storage.onChanged.addListener((changes) => {
+ext.storage.onChanged.addListener((changes) => {
   if (changes.hideDuration) currentSettings.hideDuration = changes.hideDuration.newValue;
   if (changes.replaceImages) currentSettings.replaceImages = changes.replaceImages.newValue;
   modifyPage();

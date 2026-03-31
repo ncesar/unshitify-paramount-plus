@@ -1,7 +1,10 @@
+// Orion (iOS) uses browser.* — fall back to it if chrome.* is unavailable
+const ext = typeof chrome !== 'undefined' ? chrome : browser;
+
 const checkboxes = ['hideDuration', 'replaceImages'];
 
 // Load saved settings (both default to true on first use)
-chrome.storage.local.get({ hideDuration: true, replaceImages: true }, (settings) => {
+ext.storage.local.get({ hideDuration: true, replaceImages: true }, (settings) => {
   for (const id of checkboxes) {
     document.getElementById(id).checked = settings[id];
   }
@@ -11,6 +14,6 @@ chrome.storage.local.get({ hideDuration: true, replaceImages: true }, (settings)
 
 for (const id of checkboxes) {
   document.getElementById(id).addEventListener('change', (e) => {
-    chrome.storage.local.set({ [id]: e.target.checked });
+    ext.storage.local.set({ [id]: e.target.checked });
   });
 }
