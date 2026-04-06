@@ -4,6 +4,6 @@
   "description": "Browser extension to hide duration labels and replace thumbnails on Paramount+",
   "scripts": {
     "generate-icons": "node scripts/generate-icons.js",
-    "build": "zip -r paramount-ui-cleaner.zip manifest.json content.js styles.css icons/ README.md --exclude '*.DS_Store'"
+    "build": "zip -r paramount-ui-cleaner.zip manifest.json content.js popup.html popup.js styles.css icons/ README.md --exclude '*.DS_Store'"
   }
 }
